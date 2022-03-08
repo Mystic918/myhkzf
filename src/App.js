@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+/*
+ * @Descripttion: 
+ * @version: v.1
+ * @Author: 吴泽豪
+ * @Date: 2022-03-08 21:43:31
+ * @LastEditors: 吴泽豪
+ * @LastEditTime: 2022-03-08 23:08:37
+ */
+import { Button } from 'antd-mobile'
+import { BrowserRouter as Router, Route, Routes, Link , Outlet} from 'react-router-dom'
+
+import Home from './pages/Home'
+import CityList from './pages/CityList'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Link to='/home'>home</Link>
+        <Link to='/citylist'>citylist</Link>
+        <Routes>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/home/*' element={<Home/>}/>
+          <Route path='/citylist' element={<CityList/>}/>
+          {/* <Outlet /> */}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
