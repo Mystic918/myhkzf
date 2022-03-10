@@ -8,8 +8,6 @@
  */
 import request from "../../utlis/request";
 
-export const getSwipers = ()=>{
-    return request({
-        url:'https://www.bilibili.com/'
-    })
+export const getSwipers = ()=> {
+    return request({url:'/home/swiper'})
 }
