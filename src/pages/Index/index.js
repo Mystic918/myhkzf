@@ -4,7 +4,7 @@
  * @Author: 吴泽豪
  * @Date: 2022-03-09 22:05:29
  * @LastEditors: 吴泽豪
- * @LastEditTime: 2022-03-09 23:21:15
+ * @LastEditTime: 2022-03-16 22:10:01
  */
 import React, { Component } from 'react'
 import { Swiper, Image, Grid, Button } from 'antd-mobile'
@@ -14,9 +14,9 @@ import nav1 from '../../assets/images/nav-1.png'
 import nav2 from '../../assets/images/nav-2.png'
 import nav3 from '../../assets/images/nav-3.png'
 import nav4 from '../../assets/images/nav-4.png'
-import store from '../../redux/store/index'
-import { sendAction } from '../../redux/action/index'
-export default class Index extends Component {
+import { connect } from 'react-redux'
+
+class Index extends Component {
   menu = [
     {title: 'Whole', url: nav1 },
     {title: 'Sharing', url: nav2},
@@ -28,10 +28,6 @@ export default class Index extends Component {
   }
   componentDidMount(){
     this.getRenderSwiper()
-    //监听 store
-    store.subscribe(()=>{
-        console.log(store.getState())
-    })
   }
   getRenderSwiper = async()=>{
     const result = await getSwipers()
@@ -51,9 +47,8 @@ export default class Index extends Component {
             this.setState({swiperList: resultList})
   }
   sendRedux = ()=>{
-    //触发store.dispatch提交action, redux 将 action 连接给 store
-    const action = sendAction()
-    store.dispatch(action)
+    console.log(this.props)
+    this.props.sendAction()
   }
 
   render() {
@@ -84,3 +79,18 @@ export default class Index extends Component {
     )
   }
 }
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    sendAction: ()=>{
+      // dispatch 发送 action
+      dispatch(
+        {
+          type: 'add_action'
+        }
+      )
+    }
+  }
+}
+
+//  发送方 ， 实现第二个参数
+export default connect(null, mapDispatchToProps)(Index)
